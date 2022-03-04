@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Set timeout for ajax using jQuery</title>
+    <style>
+        body {
+            width: 450px;
+            height: 300px;
+            margin: 10px;
+            float: left;
+        }
+
+        .height {
+            height: 10px;
+        }
+    </style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+
+    <script language="javascript">
+        function connect() {
+            session = document.getElementById("session").value
+            const socket = new WebSocket('ws://localhost:4000/listen/' + session,);
+            socket.addEventListener('message', function (event) {
+                console.log('Message from server ', event.data);
+                $(".protype").html(event.data);
+            });
+            socket.addEventListener('open', function (event) {
+                console.log("yo");
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1 style="color:green">ProType på distans</h1>
+    <div class="height"> </div>
+    <div>
+        <input id="session"></input>
+        <button type="button" onclick="connect()">
+            Send Data
+        </button>
+        <div class="height"> </div>
+        <div class="protype" id="protype"> </div>
+
+    </div>
+
+</body>
+
+</html>
